@@ -1,2 +1,2 @@
-# distributed_calculator
+# distributed-calculator
 Распределенный вычислитель арифметических выражений
