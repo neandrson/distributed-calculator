@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dirstributed Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Distributed Calculator</h1>
+
+    <h2>Add Expression</h2>
+    <form id="addForm">
+        <label for="expression">Expression:</label>
+        <input type="text" id="expression" name="expression" required>
+        <button type="submit">Add Expression</button>
+    </form>
+
+    <h2>Expression List</h2>
+    <table id="expressionTable">
+        <tr>
+            <th>ID</th>
+            <th>Expression</th>
+            <th>Result</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Evaluated At</th>
+        </tr>
+    </table>
+
+    <h2>Operations List</h2>
+    <table id="operationsTable">
+        <tr>
+            <th>Operator</th>
+            <th>Execution Time</th>
+        </tr>
+    </table>
+
+    <h2>Configure Operation Execution Time</h2>
+    <form id="configureForm">
+        <label for="add_time">Add Time:</label>
+        <input type="number" id="add_time" name="add_time" required>
+        <label for="sub_time">Subtract Time:</label>
+        <input type="number" id="sub_time" name="sub_time" required>
+        <label for="mul_time">Multiply Time:</label>
+        <input type="number" id="mul_time" name="mul_time" required>
+        <label for="div_time">Divide Time:</label>
+        <input type="number" id="div_time" name="div_time" required>
+        <button type="submit">Configure</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addForm = document.getElementById('addForm');
+            const configureForm = document.getElementById('configureForm');
+            const expressionTable = document.getElementById('expressionTable');
+            const operationsTable = document.getElementById('operationsTable');
+
+            function fetchExpressions() {
+                fetch('http://localhost:8080/expressions')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Expressions Data:', data);  // Added console.log
+                    expressionTable.innerHTML = '<tr><th>ID</th><th>Expression</th><th>Result</th><th>Status</th><th>Created At</th><th>Evaluated At</th></tr>';
+                    data.forEach(expression => {
+                        const row = `<tr>
+                            <td>${expression.ID}</td>
+                            <td>${expression.Expression}</td>
+                            <td>${expression.Result}</td>
+                            <td>${expression.Status}</td>
+                            <td>${expression.CreatedAt}</td>
+                            <td>${expression.EvaluatedAt}</td>
+                        </tr>`;
+                        expressionTable.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error fetching expressions:', error));
+            }
+
+            function fetchOperations() {
+                fetch('http://localhost:8080/operations')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Operations Data:', data);  // Added console.log
+                    operationsTable.innerHTML = '<tr><th>Operator</th><th>Execution Time</th></tr>';
+                    data.forEach(operation => {
+                        const row = `<tr>
+                            <td>${operation.operator}</td>
+                            <td>${operation.execution_time}</td>
+                        </tr>`;
+                        operationsTable.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error fetching operations:', error));
+            }
+
+            addForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const expression = document.getElementById('expression').value;
+                fetch('http://localhost:8080/expression', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ expression: expression })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Expression added successfully!');
+                        fetchExpressions();
+                    } else {
+                        throw new Error('Error adding expression');
+                    }
+                })
+                .catch(error => console.error('Error adding expression:', error));
+            });
+
+            configureForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const add_time = document.getElementById('add_time').value;
+                const sub_time = document.getElementById('sub_time').value;
+                const mul_time = document.getElementById('mul_time').value;
+                const div_time = document.getElementById('div_time').value;
+                fetch('http://localhost:8080/operations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        add_time: parseInt(add_time),
+                        sub_time: parseInt(sub_time),
+                        mul_time: parseInt(mul_time),
+                        div_time: parseInt(div_time)
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Operation times configured successfully!');
+                        fetchOperations();
+                    } else {
+                        throw new Error('Error configuring operation times');
+                    }
+                })
+                .catch(error => console.error('Error configuring operation times:', error));
+            });
+
+            fetchExpressions();
+            fetchOperations();
+        });
+    </script>
+</body>
+</html>
+
