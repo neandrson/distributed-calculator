@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"time"
+	"math"
 
 	"github.com/anaskozyr/distributed-calculator/internal/work"
 	"go.nanasi880.dev/rpn"
@@ -37,7 +38,12 @@ func (e *Expression) Task() {
 		e.ch <- e.value1 * e.value2
 	case "/":
 		time.Sleep(time.Duration(DivTime) * time.Second)
-		e.ch <- e.value1 / e.value2
+		if e.value2 != 0 {
+			e.ch <- e.value1 / e.value2
+		} else {
+			// Обработка случая деления на ноль
+			e.ch <- math.MaxInt64
+	   }
 	}
 }
 
