@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="block">
+        <button id="calc" class="menu-button">Calculator</button>
+        <button id="status" class="menu-button" onclick="GetStatus()">Statuses</button>
+        <button id="history" class="menu-button"  onclick="GetHistory()" >History</button>
+        <button id="config" class="menu-button">Config</button>
+    </div>
+    <form class="Calculator" id="calc-form" style="display: none;" target="_self" >
+        <section class="title-calc">
+            <h1>Calculator</h1>
+        </section>
+        <section class="input-clalc">
+            <label for="expression">Expression</label>
+            <input type="text" name="expression" id="expression">
+        </section>
+        <section class="submit-calc">
+            <button class="calcinput" type="button" onclick="submitExpression()">Submit</button>
+        </section>
+    </form>
+    <form class="Calculator" id="status-form" style="display: none;" target="_self" >
+        <section class="title-calc">
+            <h2>Client Status</h2>
+            <button class="add-client-button" onclick="openModal()">Add Client</button>
+            
+        </section>
+        <div id="status-container"></div>
+        <div id="modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Add Client</h2>
+              <form id="add-client-form">
+                <label for="numberOfGoroutines">Number of Goroutines:</label>
+                <input type="number" id="numberOfGoroutines" name="numberOfGoroutines" required>
+                <button class="add-client-button" onclick="addClient()">Submit</button>
+              </form>
+            </div>
+          </div>
+    </form>
+    
+    <form class="Calculator" id="history-form" style="display: none;" target="_self" >
+        <section class="title-calc">
+            <h2>History</h2>
+        </section>
+        <div id="history-container"></div>
+    </form>
+    <form class="Calculator" id="config-form" style="display: none;" target="_self" >
+        <section class="title-calc">
+            <h1>Config</h1>
+        </section>
+        <section class="input-config">
+            <ul>
+                <li>
+                    <label for="sum">Sum</label>
+                    <input class="inculc" name="sum" id="sum">
+                </li>
+                <li>
+                    <label for="min">Difference</label>
+                    <input type="text" name="min" id="min">
+                </li>
+                <li>
+                    <label for="mult">Multiplication</label>
+                    <input type="text" name="mult" id="mult">
+                </li>
+                <li>
+                    <label for="div">Division</label>
+                    <input type="text" name="div" id="div">
+                </li>
+                <li>
+                    <label for="exp">Exponentiation</label>
+                    <input type="text" name="exp" id="exp">
+                </li>
+            </ul>
+        </section>
+        
+        <section class="submit-calc">
+            <button class="calcinput" type="button" onclick="SetConfig()">Submit</button>
+        </section>
+    </form>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const calcButton = document.getElementById("calc");
+            const statusButton = document.getElementById("status");
+            const historyButton = document.getElementById("history");
+            const configButton = document.getElementById("config");
+
+            const calcForm = document.getElementById("calc-form");
+            const statusForm = document.getElementById("status-form");
+            const historyForm = document.getElementById("history-form");
+            const configForm = document.getElementById("config-form");
+
+            calcButton.addEventListener("click", function() {
+                calcForm.style.display = "block";
+                statusForm.style.display = "none";
+                historyForm.style.display = "none";
+                configForm.style.display = "none";
+            });
+
+            statusButton.addEventListener("click", function() {
+                calcForm.style.display = "none";
+                statusForm.style.display = "block";
+                historyForm.style.display = "none";
+                configForm.style.display = "none";
+            });
+
+            historyButton.addEventListener("click", function() {
+                calcForm.style.display = "none";
+                statusForm.style.display = "none";
+                historyForm.style.display = "block";
+                configForm.style.display = "none";
+            });
+
+            configButton.addEventListener("click", function() {
+                calcForm.style.display = "none";
+                statusForm.style.display = "none";
+                historyForm.style.display = "none";
+                configForm.style.display = "block";
+            });
+        });
+        
+    </script>
+</body>
+</html>

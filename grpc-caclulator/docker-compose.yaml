@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: userDB
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postg:/data
+  gRPC:
+    build: 
+     context: .
+     dockerfile: Dockerfile
+    ports:
+     - "8080:8080"
+     - "8081:8081"
+    image: culc-grpc:latest
+  web:
+    image: nginx:latest
+    ports:
+      - "8082:80"
+    volumes:
+      - ./front:/usr/share/nginx/html

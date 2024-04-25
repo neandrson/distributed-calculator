@@ -1,0 +1,14 @@
+env: "local"
+storage_path: "./storage/culc.db"
+token_time : 300m
+grpc:
+  port: 8080
+  timeout: 600s
+grpcweb: 8081
+countWorker: 8
+postgres:
+  port: 5432
+  host: "db"
+  dbname: "userDB"
+  user: "root"
+  password: "secret"
