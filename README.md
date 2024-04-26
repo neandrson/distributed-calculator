@@ -17,6 +17,19 @@ cd distributed-calculator/grpc-calculator/
 sudo docker compose up --build
 ```
 
+#### Запуск GUI 
+
+```sh
+firefox http://localhost:8082/
+```
+
+Либо если вы используете хром 
+
+```sh
+google-chrome http://localhost:8082/
+```
+
+
 #### Запуск тестов
 
 ```sh
