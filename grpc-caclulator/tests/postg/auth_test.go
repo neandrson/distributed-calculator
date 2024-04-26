@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	culc "github.com/anaskozyr/distributed-calculator/protoculc/gen/go"
+	culc "github.com/ragnack97/protoculc/gen/go"
 	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

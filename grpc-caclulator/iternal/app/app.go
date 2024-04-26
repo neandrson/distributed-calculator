@@ -10,7 +10,7 @@ import (
 	"culc/iternal/services/auth"
 	"time"
 
-	culcv1 "./protoculc/gen/go"
+	culcv1 "github.com/ragnack97/protoculc/gen/go"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

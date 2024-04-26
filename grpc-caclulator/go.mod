@@ -3,11 +3,11 @@ module culc
 go 1.22.1
 
 require (
-	github.com/anaskozyr/distributed-calculator/protoculc v0.15.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/mgenware/go-shunting-yard v0.0.0-20170306102834-6dc682c5e09c
+	github.com/ragnack97/protoculc v0.15.0
 	github.com/stretchr/testify v1.9.0
 	google.golang.org/grpc v1.63.2
 	gorm.io/driver/postgres v1.5.7

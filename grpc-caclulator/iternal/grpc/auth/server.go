@@ -15,7 +15,7 @@ import (
 	"sync"
 	"time"
 
-	culcv1 "github.com/anaskozyr/distributed-calculator/protoculc/gen/go"
+	culcv1 "github.com/ragnack97/protoculc/gen/go"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
