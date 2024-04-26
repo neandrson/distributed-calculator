@@ -8,7 +8,7 @@ git clone https://github.com/anaskozyr/distributed-calculator
 #### Переходим в каталог проекта GRPC
 
 ```sh
-cd distributed-calculator/grpc-caclulator/
+cd distributed-calculator/grpc-calculator/
 ```
 
 #### Делаем сборку проекта и запуск сервисов командой
