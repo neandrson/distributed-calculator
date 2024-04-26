@@ -9,6 +9,6 @@ countWorker: 8
 postgres:
   port: 5432
   host: "db"
-  dbname: "userDB"
+  dbname: "usersDB"
   user: "root"
   password: "secret"
